@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nemos.net/calculate-age</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    }
+        label {
+            display: block;
+            margin-top: 20px;
+        }
+        input {
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+        
+        
+        .brown-button {
+            background-color: brown;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>Nemos - Age Calculate</h2>
+    <label for="dob">Выберите дату рождения:</label>
+    <input type="date" id="dob">
+    <button onclick="calculateAge()">Рассчитать возраст и дни до дня рождения</button>
+    
+    <p id="result"></p>
+    
+    <script>
+        function calculateAge() {
+            var dob = new Date(document.getElementById("dob").value);
+            var today = new Date();
+            var age = today.getFullYear() - dob.getFullYear();
+            var monthDiff = today.getMonth() - dob.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+            
+            var nextBirthday = new Date(today.getFullYear(), dob.getMonth(), dob.getDate());
+            if (today > nextBirthday) {
+                nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+            }
+            
+            var daysUntilBirthday = Math.floor((nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+
+            document.getElementById("result").innerHTML = "Возраст по полученным данным: " + age + ". <h1></h1>До данного дня рождения осталось " + daysUntilBirthday + " дней.";
+        }
+    </script>
+    <button onclick="window.location.href='https://nemos.net'" class="brown-button">Главная</button>
+</body>
+</html>
